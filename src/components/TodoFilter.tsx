@@ -22,7 +22,6 @@ export const TodoFilter: React.FC<TodoFilterProps> = ({
       >
         All
       </a>
-
       <a
         href="#/active"
         className={`filter__link ${filter === 'active' ? 'selected' : ''}`}
@@ -34,7 +33,6 @@ export const TodoFilter: React.FC<TodoFilterProps> = ({
       >
         Active
       </a>
-
       <a
         href="#/completed"
         className={`filter__link ${filter === 'completed' ? 'selected' : ''}`}

@@ -31,7 +31,7 @@ export const App: React.FC = () => {
   const [newTodoTitle, setNewTodoTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [tempTodo, setTempTodo] = useState<Todo | null>(null);
-  const [todoAdded, setTodoAdded] = useState(false);
+  // Видаляємо стан todoAdded, оскільки він нам більше не потрібен
   const [deletingTodos, setDeletingTodos] = useState<number[]>([]);
 
   const newTodoInputRef = useRef<HTMLInputElement | null>(null);
@@ -115,17 +115,7 @@ export const App: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (todoAdded) {
-      setTimeout(() => {
-        if (newTodoInputRef.current) {
-          newTodoInputRef.current.focus();
-        }
-
-        setTodoAdded(false);
-      }, 0);
-    }
-  }, [todoAdded]);
+  // Видаляємо useEffect з todoAdded, оскільки переносимо логіку в handleAddTodo
 
   const handleAddTodo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -161,7 +151,13 @@ export const App: React.FC = () => {
 
       setTodos(prev => [...prev, createdTodo]);
       setNewTodoTitle('');
-      setTodoAdded(true);
+
+      // Переносимо логіку фокусування сюди
+      setTimeout(() => {
+        if (newTodoInputRef.current) {
+          newTodoInputRef.current.focus();
+        }
+      }, 0);
     } catch (err) {
       setError('Unable to add a todo');
       setTimeout(() => {
